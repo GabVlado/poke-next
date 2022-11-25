@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
 
 	//https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/132.svg
 	const pokemons: SmallPokemon[] = data.results
-	console.log(pokemons)
+
 
 	return {
 		props: {
