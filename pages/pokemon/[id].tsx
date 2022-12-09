@@ -1,4 +1,4 @@
-//import { useEffect } from 'react';
+import { useState } from 'react';
 import { GetStaticProps, GetStaticPaths, NextPage } from 'next';
 import { Button, Card, Container, Grid, Image, Text } from '@nextui-org/react';
 
@@ -14,19 +14,13 @@ interface Props {
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
-	//console.log(pokemon)
+	const [isInFavorites, setIsInFavorites] = useState(localFavorites.existPokeInFavorites(pokemon.id))
+	
 
 	const onToggleFavorite = () => {
 		localFavorites.toggleFavorite(pokemon.id)
+		setIsInFavorites(!isInFavorites)
 	}
-
-	//console.log(typeof window)
-
-	// useEffect(() => {
-	// 	console.log('useEffect ejecutado',localStorage.getItem('favorites'));
-
-	// }, [])
-
 
 
 	return (
@@ -51,10 +45,10 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 							<Text h1 transform='capitalize'>{pokemon.name}</Text>
 							<Button
 								color="gradient"
-								ghost
+								ghost= { !isInFavorites }
 								onPress={ onToggleFavorite }
 							>
-								Guardar en favoritos
+								{ isInFavorites ? 'En Favoritos': 'Guardar en Favoritos'}
 							</Button>
 						</Card.Header>
 
@@ -102,8 +96,6 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 
 	const pokemons151 = [...Array(151)].map((value, index) => `${index + 1}`)
 
-
-
 	return {
 		paths: pokemons151.map(id => ({
 			params: { id }
@@ -122,8 +114,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { data } = await pokeApi.get<Pokemon>(`/pokemon/${id}`)
 
 	//console.log(data);
-
-
 	return {
 		props: {
 			pokemon: data
