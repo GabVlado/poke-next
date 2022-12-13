@@ -44,7 +44,7 @@ export const Navbar = () => {
                 <NextLink href='/favorites'  legacyBehavior >
 
 
-                        <Text color='white' css={{ marginRight: '2rem' }} >Favoritos</Text>
+                        <Text color='white' css={{ marginRight: '2rem', cursor: 'pointer' }} >Favoritos</Text>
 
 
 
