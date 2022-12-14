@@ -32,7 +32,6 @@ const pokemons = (  ): number[] => {
 
 }
 
-
 export default  {
     existPokeInFavorites,
     toggleFavorite,
